@@ -21,8 +21,17 @@ ________________________________________________________________________________
 	4.4 RaiseTicketController handles raising a new ticket.
 	
 5. created a email service class with @Service which will be used to send email.	
+
+6. implemented sendEmail methods in Login contoller for forgot password module and in Register controller
+	if user is succesfully added to system. 
+7. implemented validation check if user already registered with system he cannot register and a mail with his username password will be sent to his registered email address.
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
 Assumption:
 
+					*************User are Employee and Admin.********************.
+
 - Only one admin is there with username = admin and password = 1234.
 - Email with username and password will be sent to only registered email adress for the user.
+- username and email address are same.
+- if user tries to register again then a mail with his username password will be sent to his registered email address.
+- 

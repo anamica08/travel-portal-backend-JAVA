@@ -42,4 +42,17 @@ public class EmployeeService {
 	public List<Employee> getAllEmployee(){
 		return empdao.findAll();
 	}
+	
+	/**
+	 * User already exist.
+	 *
+	 * @param employee the employee
+	 * @return true, if successful
+	 */
+	public boolean userAlreadyExist(Employee employee) {
+		if(empdao.existsById(employee.getEmail())) {
+			return true;
+		}
+		return false;
+	}
 }

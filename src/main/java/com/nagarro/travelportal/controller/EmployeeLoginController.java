@@ -1,5 +1,7 @@
 package com.nagarro.travelportal.controller;
 
+import java.util.List;
+
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,10 +32,10 @@ public class EmployeeLoginController {
 	@Autowired
 	private EmailService emailService;
 
-//	@GetMapping("/employees")
-//	public List<Employee> list() {
-//		return empService.getAllEmployee();
-//	}
+	@GetMapping("/employees")
+	public List<Employee> list() {
+		return empService.getAllEmployee();
+	}
 
 	/**
 	 * Gets the employee.
