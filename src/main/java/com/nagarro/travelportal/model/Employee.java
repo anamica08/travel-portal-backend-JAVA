@@ -28,15 +28,15 @@ public class Employee {
 	private String password;
 
 	/** The first name. */
-	@NotNull(message="FirstName cannot be null")
+	@NotNull
 	private String firstName;
 
 	/** The last name. */
-	@NotNull(message="")
+	@NotNull
 	private String lastName;
 
 	/** The business unit. */
-	@NotNull(message="")
+	@NotNull
 	private String businessUnit;
 
 	/** The title. */
@@ -44,8 +44,8 @@ public class Employee {
 	private String title;
 
 	/** The email. */
-	@NotNull
-	@Email
+	@NotNull(message="Email cannot be null")
+	@Email(message = "Not a valid email address")
 	// TODO:implement restrictive email as user@nagarro.com .
 	private String email;
 
@@ -372,5 +372,8 @@ public class Employee {
 				+ ", address1=" + address1 + ", address2=" + address2 + ", city=" + city + ", state=" + state + ", zip="
 				+ zip + ", country=" + country + "]";
 	}
+
+
+	
 
 }

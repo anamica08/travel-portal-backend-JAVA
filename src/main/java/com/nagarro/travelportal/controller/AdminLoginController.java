@@ -10,11 +10,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nagarro.travelportal.model.LoginCredentials;
 
+
+/**
+ * The Class AdminLoginController.
+ */
 @RestController
 public class AdminLoginController {
 	
+	/** The log. */
 	private static Logger log = Logger.getLogger(EmployeeLoginController.class);
 	
+	/**
+	 * Gets the admin.
+	 *
+	 * @param credentials the credentials
+	 * @return the admin
+	 */
 	@PostMapping("/admin/login")
 	public ResponseEntity<String> getAdmin(@RequestBody LoginCredentials credentials) {
 

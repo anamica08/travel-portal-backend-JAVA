@@ -1,7 +1,9 @@
 github repo:
-
+_____________
+backend: https://github.com/anamica08/travel-portal-nagarro-backend-JAVA
+frontend:https://github.com/anamica08/travel-portal-nagarro
 Base Package: com.nagarro.travelportal
-
+_____________________________________________________________________________________________________________________________________________________________________
 
 1. created model classes Ticket and Employee with @Entity annotation.
 	1.1 created 3 enum in com.nagarro.travelportal.enum package
@@ -17,6 +19,8 @@ Base Package: com.nagarro.travelportal
 	4.2 EmployeeLoginController handles employee login authentication and returns json object as string with login status and username. 
 	4.3 RegistrationController handles adding a new user to the system.
 	4.4 RaiseTicketController handles raising a new ticket.
+	
+5. created a email service class with @Service which will be used to send email.	
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
 Assumption:
 
