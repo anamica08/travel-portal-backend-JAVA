@@ -8,18 +8,18 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nagarro.travelportal.Enum.Priority;
+import com.nagarro.travelportal.Enum.TicketStatus;
 import com.nagarro.travelportal.Enum.TicketType;
 
 // TODO: Auto-generated Javadoc
@@ -32,12 +32,13 @@ public class Ticket {
 
 	/** The ticked id. */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ticketId;
 	
 	/** The employee. */
 	@JsonIgnore
 	@ManyToOne
+	@JoinColumn(name="employee_username")
 	private Employee employee;
 	
 	/** The request type. */
@@ -93,7 +94,16 @@ public class Ticket {
 
 	/** The extra details. */
 	private String extraDetails;
-
+	
+	/** The submit date. */
+	@NotNull
+	@Temporal(TemporalType.DATE)
+	private Date submitDate;
+	
+	/** The status. */
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private TicketStatus status;
 	/**
 	 * Instantiates a new ticket.
 	 */
@@ -101,41 +111,6 @@ public class Ticket {
 
 	}
 
-	/**
-	 * Instantiates a new ticket.
-	 *
-	 * @param requestType      the request type
-	 * @param priority         the priority
-	 * @param travelCity       the travel city
-	 * @param from             the from
-	 * @param startDate        the start date
-	 * @param endDate          the end date
-	 * @param passportNumber   the passport number
-	 * @param projectName      the project name
-	 * @param borneBy          the borne by
-	 * @param approver         the approver
-	 * @param expectedDuration the expected duration
-	 * @param allowedAmount    the allowed amount
-	 * @param extraDetails     the extra details
-	 */
-	public Ticket(TicketType requestType, Priority priority, String travelCity, String from, Date startDate,
-			Date endDate, String passportNumber, String projectName, String borneBy, String approver,
-			String expectedDuration, String allowedAmount, String extraDetails) {
-		super();
-		this.requestType = requestType;
-		this.priority = priority;
-		this.travelCity = travelCity;
-		this.from = from;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.passportNumber = passportNumber;
-		this.projectName = projectName;
-		this.borneBy = borneBy;
-		this.approver = approver;
-		this.expectedDuration = expectedDuration;
-		this.allowedAmount = allowedAmount;
-		this.extraDetails = extraDetails;
-	}
 	
 	/**
 	 * Gets the employee.
@@ -407,6 +382,40 @@ public class Ticket {
 	public void setExtraDetails(String extraDetails) {
 		this.extraDetails = extraDetails;
 	}
+	
+
+
+	/**
+	 * @return the submitDate
+	 */
+	public Date getSubmitDate() {
+		return submitDate;
+	}
+
+
+	/**
+	 * @param submitDate the submitDate to set
+	 */
+	public void setSubmitDate(Date submitDate) {
+		this.submitDate = submitDate;
+	}
+
+
+	/**
+	 * @return the status
+	 */
+	public TicketStatus getStatus() {
+		return status;
+	}
+
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(TicketStatus status) {
+		this.status = status;
+	}
+
 
 	/*
 	 * (non-Javadoc)

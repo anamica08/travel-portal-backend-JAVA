@@ -20,9 +20,9 @@ public class TicketService {
 	 * @param newTicket the new ticket
 	 * @return the ticket
 	 */
-	public void addOrUpdateTicket(Ticket ticket) {
+	public Ticket addOrUpdateTicket(Ticket ticket) {
 		/**save method automatically updates the entity object if it already exists.*/
-		ticketdao.save(ticket);
+		return ticketdao.save(ticket);
 	}
 	
 //	/**

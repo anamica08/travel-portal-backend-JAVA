@@ -1,0 +1,24 @@
+github repo:
+
+Base Package: com.nagarro.travelportal
+
+
+1. created model classes Ticket and Employee with @Entity annotation.
+	1.1 created 3 enum in com.nagarro.travelportal.enum package
+	
+2. created dao classes with @Respository annotation.
+	2.1 added mysql connection parameters to properties file.
+
+3. created service classes containing basic service methods for controllers, with @Service annotation.
+	Injected the dao class dependency to use its methods.
+	
+4. created controller classes with @RestController annotations.
+	4.1 AdminLoginController handle admin login authentication and returna json object as string with login status and username .
+	4.2 EmployeeLoginController handles employee login authentication and returns json object as string with login status and username. 
+	4.3 RegistrationController handles adding a new user to the system.
+	4.4 RaiseTicketController handles raising a new ticket.
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
+Assumption:
+
+- Only one admin is there with username = admin and password = 1234.
+- Email with username and password will be sent to only registered email adress for the user.

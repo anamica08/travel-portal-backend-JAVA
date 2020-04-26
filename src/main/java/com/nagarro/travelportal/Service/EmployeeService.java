@@ -1,6 +1,7 @@
 package com.nagarro.travelportal.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class EmployeeService {
 	 *
 	 * @param employee the employee
 	 */
-	public void addEmployee(Employee employee) {
-		empdao.save(employee);
+	public Employee addEmployee(Employee employee) {
+		return empdao.save(employee);
 	}
 	
 	/**
@@ -29,10 +30,15 @@ public class EmployeeService {
 	 *
 	 * @return the employee by username
 	 */
-	public Employee getEmployeeByUsername(String username) {
+	public Employee getEmployeeByUsername(String username)throws NoSuchElementException{
 		return empdao.findById(username).get();
 	}
 	
+	/**
+	 * Gets the all employee.
+	 *
+	 * @return the all employee
+	 */
 	public List<Employee> getAllEmployee(){
 		return empdao.findAll();
 	}

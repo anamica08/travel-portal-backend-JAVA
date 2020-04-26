@@ -11,7 +11,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -26,19 +25,18 @@ public class Employee {
 	private String username;
 
 	/** The password. */
-	@NotNull
 	private String password;
 
 	/** The first name. */
-	@NotNull
+	@NotNull(message="FirstName cannot be null")
 	private String firstName;
 
 	/** The last name. */
-	@NotNull
+	@NotNull(message="")
 	private String lastName;
 
 	/** The business unit. */
-	@NotNull
+	@NotNull(message="")
 	private String businessUnit;
 
 	/** The title. */
@@ -89,78 +87,7 @@ public class Employee {
 	public Employee() {
 
 	}
-	/**
-	 * Instantiates a new employee.
-	 *
-	 * @param firstName    the first name
-	 * @param lastName     the last name
-	 * @param businessUnit the business unit
-	 * @param title        the title
-	 * @param email        the email
-	 * @param phone        the phone
-	 * @param address1     the address 1
-	 * @param address2     the address 2
-	 * @param city         the city
-	 * @param state        the state
-	 * @param zip          the zip
-	 * @param country      the country
-	 */
-	public Employee(String firstName, String lastName, String businessUnit, String title, String email,
-			String phone, String address1, String address2, String city, String state, String zip, String country) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.businessUnit = businessUnit;
-		this.title = title;
-		this.email = email;
-		this.phone = phone;
-		this.address1 = address1;
-		this.address2 = address2;
-		this.city = city;
-		this.state = state;
-		this.zip = zip;
-		this.country = country;
-	}
 	
-	
-	/**
-	 * Instantiates a new employee.
-	 *
-	 * @param username the username
-	 * @param password the password
-	 * @param firstName the first name
-	 * @param lastName the last name
-	 * @param businessUnit the business unit
-	 * @param title the title
-	 * @param email the email
-	 * @param phone the phone
-	 * @param address1 the address 1
-	 * @param address2 the address 2
-	 * @param city the city
-	 * @param state the state
-	 * @param zip the zip
-	 * @param country the country
-	 */
-	public Employee(String username, String password, String firstName, String lastName, String businessUnit,
-			String title, String email, String phone, String address1, String address2, String city, String state,
-			String zip, String country) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.businessUnit = businessUnit;
-		this.title = title;
-		this.email = email;
-		this.phone = phone;
-		this.address1 = address1;
-		this.address2 = address2;
-		this.city = city;
-		this.state = state;
-		this.zip = zip;
-		this.country = country;
-		// this.tickets = tickets;
-	}
 
 	/**
 	 * Gets the username.
