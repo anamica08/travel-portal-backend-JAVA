@@ -1,6 +1,7 @@
 package com.nagarro.travelportal.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,16 +45,16 @@ public class TicketService {
 		return ticketdao.findAll();
 	}
 	
-//	/**
-//	 * Gets the by username.
-//	 *
-//	 * @param username the username
-//	 * @return the by username
-//	 */
-//	public List<Ticket> getByUsername(String username) {
-//		return ticketdao.getByUsername(username);
-//		
-//	}
+	/**
+	 * Gets the by username.
+	 *
+	 * @param username the username
+	 * @return the by username
+	 */
+	public List<Ticket> getByUsername(String username)throws NoSuchElementException {
+		return ticketdao.findByUsername(username);
+		
+	}
 	
 	/**
 	 * Gets the ticket by id.
@@ -61,7 +62,12 @@ public class TicketService {
 	 * @param id the id
 	 * @return the ticket by id
 	 */
-	public Ticket getTicketById(int id) {
+	public Ticket getTicketById(int id)throws NoSuchElementException {
 		return ticketdao.findById(id).get();
+	}
+	
+	
+	public String ticketRaisedBy(Integer ticketId) {
+		return ticketdao.ticketRaiseBy(ticketId);
 	}
 }

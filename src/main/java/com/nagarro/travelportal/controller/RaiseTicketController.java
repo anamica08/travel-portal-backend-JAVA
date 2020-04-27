@@ -36,31 +36,29 @@ public class RaiseTicketController {
 	/**
 	 * Raise ticket.
 	 *
-	 * @param user the user
+	 * @param user   the user
 	 * @param ticket the ticket
 	 * @return the response entity
 	 */
-	@PostMapping("{user}/raise")
-	public ResponseEntity<String> raiseTicket(
-			@PathVariable(value = "user") String user,
+	@PostMapping("{user}/ticket")
+	public ResponseEntity<String> raiseTicket(@PathVariable(value = "user") String user,
 			@Valid @RequestBody Ticket ticket) {
-	
-		Employee emp =empService.getEmployeeByUsername(user);
-		
-		
-		if(emp == null) {
-			log.error("USer with "+user+" not found.");
-			return new ResponseEntity<String>("User not found with username: "+user,HttpStatus.EXPECTATION_FAILED);
+
+		Employee emp = empService.getEmployeeByUsername(user);
+
+		if (emp == null) {
+			log.error("USer with " + user + " not found.");
+			return new ResponseEntity<String>("User not found with username: " + user, HttpStatus.EXPECTATION_FAILED);
 		}
-		//foreign key set.
+		// foreign key set.
 		ticket.setEmployee(emp);
-		
+
 		if (ticketService.addOrUpdateTicket(ticket) != null) {
 			log.info("Ticket to travel from " + ticket.getFrom() + " to " + ticket.getTravelCity()
 					+ " has been raised. ");
 			return new ResponseEntity<String>("Ticket Raised Succesfuly", HttpStatus.OK);
 		}
-		
+
 		log.info("Ticket not raised ");
 		return new ResponseEntity<String>("Ticket not Raised", HttpStatus.EXPECTATION_FAILED);
 	}
