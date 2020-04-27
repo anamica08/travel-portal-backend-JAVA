@@ -18,7 +18,7 @@ ________________________________________________________________________________
 	4.1 AdminLoginController handle admin login authentication and returna json object as string with login status and username .
 	4.2 EmployeeLoginController handles employee login authentication and returns json object as string with login status and username. 
 	4.3 RegistrationController handles adding a new user to the system.
-	4.4 RaiseTicketController handles raising a new ticket.
+	4.4 TicketController handles raising a new ticket and retreiving tickets of a particular user.
 	
 5. created a email service class with @Service which will be used to send email.	
 

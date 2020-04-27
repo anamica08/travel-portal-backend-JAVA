@@ -16,6 +16,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -106,9 +111,11 @@ public class Ticket {
 	@Enumerated(EnumType.STRING)
 	private TicketStatus status;
 	
-//	@Lob
-//	private byte[] files;
+	/** The files. */
+	@Lob
+	private byte[] files;
 	
+	private String remarks;
 	/**
 	 * Instantiates a new ticket.
 	 */
@@ -421,19 +428,65 @@ public class Ticket {
 	public void setStatus(TicketStatus status) {
 		this.status = status;
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
+
+
+
+	/**
+	 * @return the files
+	 */
+	public byte[] getFiles() {
+		return files;
+	}
+
+
+
+	/**
+	 * @param files the files to set
+	 */
+	public void setFiles(MultipartFile file) {
+		try {
+			this.files = file.getBytes();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+
+	/**
+	 * @return the remarks
+	 */
+	public String getRemarks() {
+		return remarks;
+	}
+
+
+
+	/**
+	 * @param remarks the remarks to set
+	 */
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Ticket [ticketId=" + ticketId + ", requestType=" + requestType + ", priority=" + priority
-				+ ", travelCity=" + travelCity + ", from=" + from + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", passportNumber=" + passportNumber + ", projectName=" + projectName + ", borneBy=" + borneBy
-				+ ", approver=" + approver + ", expectedDuration=" + expectedDuration + ", allowedAmount="
-				+ allowedAmount + ", extraDetails=" + extraDetails + "]";
+		return "Ticket [ticketId=" + ticketId + ", employee=" + employee + ", requestType=" + requestType
+				+ ", priority=" + priority + ", travelCity=" + travelCity + ", from=" + from + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", passportNumber=" + passportNumber + ", projectName="
+				+ projectName + ", borneBy=" + borneBy + ", approver=" + approver + ", expectedDuration="
+				+ expectedDuration + ", allowedAmount=" + allowedAmount + ", extraDetails=" + extraDetails
+				+ ", submitDate=" + submitDate + ", status=" + status + ", files=" + Arrays.toString(files)
+				+ ", remarks=" + remarks + "]";
 	}
+	
+	
+	
 
 }

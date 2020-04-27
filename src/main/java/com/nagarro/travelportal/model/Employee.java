@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "Employee")
 public class Employee {
-
+	
 	/** The username. */
 	@Id
 	private String username;
@@ -95,6 +95,8 @@ public class Employee {
 	 * @return the username
 	 */
 	public String getUsername() {
+		
+		//Logger.getLogger(Employee.class).info("getter");
 		return username;
 	}
 
@@ -105,6 +107,7 @@ public class Employee {
 	 * @param username the username to set
 	 */
 	public void setUsername(String username) {
+		//Logger.getLogger(Employee.class).info("setter");
 		this.username = username;
 	}
 

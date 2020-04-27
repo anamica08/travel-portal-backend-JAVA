@@ -67,7 +67,15 @@ public class TicketService {
 	}
 	
 	
+	/**
+	 * Ticket raised by.
+	 *
+	 * @param ticketId the ticket id
+	 * @return the string
+	 */
 	public String ticketRaisedBy(Integer ticketId) {
 		return ticketdao.ticketRaiseBy(ticketId);
 	}
+	
+	
 }
