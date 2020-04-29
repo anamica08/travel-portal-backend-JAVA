@@ -115,7 +115,12 @@ public class Ticket {
 	@Lob
 	private byte[] files;
 	
+	/** The remarks. */
 	private String remarks;
+	
+	
+	
+	
 	/**
 	 * Instantiates a new ticket.
 	 */

@@ -25,10 +25,10 @@ import com.nagarro.travelportal.model.Ticket;
  */
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
-public class TicketController {
+public class UserTicketController {
 
 	/** The log. */
-	private Logger log = Logger.getLogger(TicketController.class);
+	private Logger log = Logger.getLogger(UserTicketController.class);
 
 	/** The ticket service. */
 	@Autowired

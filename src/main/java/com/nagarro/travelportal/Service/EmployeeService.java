@@ -3,7 +3,6 @@ package com.nagarro.travelportal.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +50,7 @@ public class EmployeeService {
 	 * @return true, if successful
 	 */
 	public boolean userAlreadyExist(Employee employee) {
-		Logger.getLogger(EmployeeService.class).info(empdao.existsById(employee.getUsername()));
+		//Logger.getLogger(EmployeeService.class).info(empdao.existsById(employee.getUsername()));
 		if(empdao.existsById(employee.getUsername())) {
 			return true;
 		}

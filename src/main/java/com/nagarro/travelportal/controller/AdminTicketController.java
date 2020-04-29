@@ -21,17 +21,14 @@ import com.nagarro.travelportal.model.Employee;
 import com.nagarro.travelportal.model.Ticket;
 
 
-/**
- * The Class TicketController.admin related functions
- * 
- */
+
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
-public class TicketHandlerController {
+public class AdminTicketController {
 
 
 	/** The log. */
-private Logger log = Logger.getLogger(TicketHandlerController.class);
+private Logger log = Logger.getLogger(AdminTicketController.class);
 
 	/** The ticket service. */
 	@Autowired
@@ -65,12 +62,8 @@ private Logger log = Logger.getLogger(TicketHandlerController.class);
 			
 			log.info(ticketService.getTicketById(ticketToUpdate.getTickedId())); //throws no such element exception.
 			
-			//ticketraise by now working
-			log.info(ticketService.ticketRaisedBy(ticketToUpdate.getTickedId()));
-			
-			
+			// obtain the employee who raised this ticket.
 			Employee empObj = empService.getEmployeeByUsername(ticketService.ticketRaisedBy(ticketToUpdate.getTickedId()));
-			log.info(empObj);
 			ticketToUpdate.setEmployee(empObj);
 			ticketService.addOrUpdateTicket(ticketToUpdate);
 			

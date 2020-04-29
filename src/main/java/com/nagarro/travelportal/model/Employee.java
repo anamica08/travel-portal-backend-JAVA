@@ -12,6 +12,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Entity Employee.
@@ -25,7 +27,11 @@ public class Employee {
 	private String username;
 
 	/** The password. */
+	@JsonIgnore
 	private String password;
+	
+	/** The password as string. */
+	private String passwordAsString;
 
 	/** The first name. */
 	@NotNull
@@ -128,6 +134,22 @@ public class Employee {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	/**
+	 * @return the passwordAsString
+	 */
+	public String getPasswordAsString() {
+		return passwordAsString;
+	}
+
+
+	/**
+	 * @param passwordAsString the passwordAsString to set
+	 */
+	public void setPasswordAsString(String passwordAsString) {
+		this.passwordAsString = passwordAsString;
+	}
+
 
 	/**
 	 * Gets the first name.

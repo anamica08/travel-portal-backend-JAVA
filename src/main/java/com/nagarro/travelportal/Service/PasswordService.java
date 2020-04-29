@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 // TODO: Auto-generated Javadoc
 /**
  * The Class PasswordService.
+ * Generates random passwords.
  */
 @Service
 public class PasswordService {

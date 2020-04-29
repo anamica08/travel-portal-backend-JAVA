@@ -1,11 +1,17 @@
 package com.nagarro.travelportal.model;
 
+import java.io.Serializable;
+
 /**
- * The Class LoginCredentials.
+ * The Class JwtRequest.
  */
-public class LoginCredentials {
-	//private Logger log = Logger.getLogger(LoginCredentials.class);
+public class JwtRequest implements Serializable{
+	//private Logger log = Logger.getLogger(JwtRequest.class);
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	/**
@@ -41,7 +47,7 @@ public class LoginCredentials {
 	 * @param username the username
 	 * @param password the password
 	 */
-	public LoginCredentials(String username, String password) {
+	public JwtRequest(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -50,7 +56,7 @@ public class LoginCredentials {
 	/**
 	 * Instantiates a new login credentials.
 	 */
-	public LoginCredentials() {
+	public JwtRequest() {
 		
 	}
 	

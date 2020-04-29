@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * The Class EmailService.
+ * The Class EmailService
+ *  sends email.
  */
 @Service
 public class EmailService {

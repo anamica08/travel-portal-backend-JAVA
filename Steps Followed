@@ -24,7 +24,8 @@ ________________________________________________________________________________
 
 6. implemented sendEmail methods in Login contoller for forgot password module and in Register controller
 	if user is succesfully added to system. 
-7. implemented validation check if user already registered with system he cannot register and a mail with his username password will be sent to his registered email address.
+7. implemented validation check if user already registered with system he cannot register and a mail with
+	 his username password will be sent to his registered email address.
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
 Assumption:
 
@@ -34,4 +35,48 @@ Assumption:
 - Email with username and password will be sent to only registered email adress for the user.
 - username and email address are same.
 - if user tries to register again then a mail with his username password will be sent to his registered email address.
-- 
+- Mail related to Admin will go to anamikalbsim@gmail.com.
+
+
+
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+
+Login Registration Flow : 
+
+
+-> user logins -->login succesfull-->JWTToekn is returned --> then access to other user api.
+-> user logins --> If login fails --> then
+
+		user clicks forgot password --> ForgotPassword controller works --> checks
+		 	if user exist with this email
+				mail is sent with username password.
+			else 
+				404 response is sent with message "user not found" and user will be redirected to registration screen.
+		----OR---
+		
+		user clicks register the Registration Controller works.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+add dependency in pom
+add secret key in applications.property
+create a package  .config
+	create a class jwttokenutil
+in service package create jwtuserdetailsservice
+in controller create jwt authentication controller
+now we create jwtrequest jwtreposne model , i will rename login credentials for that. and add implemenets Serializable in that
+created websecurity jwtrequestfilter jwtauthenticationentrypoint in .config
