@@ -20,8 +20,8 @@ public class JwtUserDetailService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		if ("admin".equals(username)) {//1234
-			return new User("admin@nagarro.com", "$2y$12$5tcCURLKLIVUMx0LLsQxnueIVtsxVGQqFUAAYxKp2CVDszhFTu.5e",
+		if ("admin@nagarro.com".equals(username)) {//1234
+			return new User("admin@nagarro.com", "$2y$12$ofMQ1e3QEo/1sunlirdJXOZMim1rT8rIdMZhnrDxy9xuAOKosnhee",
 					new ArrayList<>());
 			
 		}

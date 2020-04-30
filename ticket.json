@@ -1,0 +1,22 @@
+{
+        "requestType":"visa",
+        "priority":"urgent",
+        "travelCity":"Jalandar",
+        "from":"Jaipur",
+        "startDate":"2020-06-01",
+        "endDate":"",
+        "passportNumber":"TPK-1233434",
+        "projectName":"Dummy",
+        "borneBy":"nagarro",
+        "approver":"ok",
+        "expectedDuration":"ok",
+        "allowedAmount":"ok",
+        "extraDetails":"ok",
+        "submitDate":"2020-05-01",
+        "status":"Submitted",
+        "files":"",
+        "remarks":"we will work on this soon",
+        "downloadLink":"",
+        "ticketId":"1"
+        
+  }

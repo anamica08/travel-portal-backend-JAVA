@@ -7,7 +7,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.nagarro.travelportal.model.Employee;
 
+
+// TODO: Auto-generated Javadoc
 /**
  * The Class EmailService
  *  sends email.
@@ -15,15 +18,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 	
+	/** The log. */
 	private Logger log = Logger.getLogger(EmailService.class);
 
 	/** The mail sender. */
 	@Autowired
 	JavaMailSender mailSender;
 	
+	/** The pswd service. */
 	@Autowired
 	PasswordService pswdService;
+	
+	/** The emp service. */
+	@Autowired 
+	EmployeeService empService;
 
+	
+	
+	
 	/**
 	 * Send email.
 	 *
@@ -40,6 +52,7 @@ public class EmailService {
 		mailSender.send(simpleMailMessage);
 
 	}
+	
 	
 	
 	/**
@@ -64,4 +77,52 @@ public class EmailService {
 		log.info("Welcome Mail Sent Succesfully.");
 		return password;
 	}
+	
+	
+	
+	/**
+	 * Gets the mail with credentials.
+	 *
+	 * @param email the email
+	 * @return the mail with credentials
+	 */
+	public boolean getMailWithCredentials(String email) {
+		try {
+			Employee employee = empService.getEmployeeByUsername(email);
+
+			StringBuffer text = new StringBuffer();
+			text.append("Greetings for the day!").append("\n" + "\n" + "\n")
+					.append("Login Credentials for your account are:").append("\n" + "\n")
+					.append("Username: " + employee.getUsername()).append("\n")
+					.append("Password: " + employee.getPasswordAsString()).append("\n" + "\n" + "\n").append("Regards!")
+					.append("\n").append("Nagarro Travel Team");
+
+			sendEmail(email, text.toString());
+			log.info("Mail with username and password has been sent");
+			return true;
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		return false;
+	}
+	
+	/**
+	 * Gets the credentialsfor admin.
+	 *
+	 * @param emailAddress the email address
+	 * @return the credentialsfor admin
+	 */
+	public boolean getCredentialsforAdmin(String emailAddress) {
+		
+			StringBuffer text = new StringBuffer();
+			text.append("Greetings for the day!").append("\n" + "\n" + "\n")
+					.append("Login Credentials for your account are:").append("\n" + "\n")
+					.append("Username: " + emailAddress).append("\n").append("Password: " + "1234")
+					.append("\n" + "\n" + "\n").append("Regards!").append("\n").append("Nagarro Travel Team");
+
+			sendEmail("anamikalbsim@gmail.com", text.toString());
+			log.info("Mail with username and password has been sent");
+			return true;
+		}
+	
 }

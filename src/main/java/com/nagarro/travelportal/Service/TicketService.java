@@ -26,15 +26,7 @@ public class TicketService {
 		return ticketdao.save(ticket);
 	}
 	
-//	/**
-//	 * Edits the ticket.
-//	 *
-//	 * @param ticket the ticket
-//	 * @return the ticket
-//	 */
-//	public Ticket editTicket(Ticket ticket) {
-//		return null;
-//	}
+
 	
 	/**
 	 * Gets the all ticket.

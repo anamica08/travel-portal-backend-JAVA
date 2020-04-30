@@ -17,9 +17,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -72,7 +69,7 @@ public class Ticket {
 	private Date startDate;
 
 	/** The end date. */
-	@NotNull
+	
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
 
@@ -113,14 +110,30 @@ public class Ticket {
 	
 	/** The files. */
 	@Lob
+	@Column(length=100000)
 	private byte[] files;
 	
-	/** The remarks. */
 	private String remarks;
 	
-	
-	
-	
+	private String downloadLink;
+	/**
+	 * @return the downloadLink
+	 */
+	public String getDownloadLink() {
+		return downloadLink;
+	}
+
+
+
+	/**
+	 * @param downloadLink the downloadLink to set
+	 */
+	public void setDownloadLink(String downloadLink) {
+		this.downloadLink = downloadLink;
+	}
+
+
+
 	/**
 	 * Instantiates a new ticket.
 	 */
@@ -445,16 +458,24 @@ public class Ticket {
 
 
 
+	
+
+
+
 	/**
 	 * @param files the files to set
 	 */
-	public void setFiles(MultipartFile file) {
-		try {
-			this.files = file.getBytes();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void setFiles(byte[] files) {
+		this.files = files;
+	}
+
+
+
+	/**
+	 * @return the ticketId
+	 */
+	public int getTicketId() {
+		return ticketId;
 	}
 
 

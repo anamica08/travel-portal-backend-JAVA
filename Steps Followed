@@ -13,29 +13,63 @@ ________________________________________________________________________________
 
 3. created service classes containing basic service methods for controllers, with @Service annotation.
 	Injected the dao class dependency to use its methods.
-	
-4. created controller classes with @RestController annotations.
-	4.1 AdminLoginController handle admin login authentication and returna json object as string with login status and username .
-	4.2 EmployeeLoginController handles employee login authentication and returns json object as string with login status and username. 
-	4.3 RegistrationController handles adding a new user to the system.
-	4.4 TicketController handles raising a new ticket and retreiving tickets of a particular user.
-	
-5. created a email service class with @Service which will be used to send email.	
 
-6. implemented sendEmail methods in Login contoller for forgot password module and in Register controller
-	if user is succesfully added to system. 
+4. created a email service class with @Service which will be used to send welcome and credentials emails.
+	for credentials email , it will first verify if the user requesting for credentials is already registered 
+	in the system.	
+	
+	.1 implemented a password service class that uses passay to genrate random passswords.
+
+6. created configuration files for JWTAuthentication.
+
+	.1 JwtTokenutil deals with generating and validationg a jwt token. also sess if token is expired or not.
+	
+	.2 JwtRequestFilter extends the Spring Web Filter OncePerRequestFilter class. For any incoming request
+		 this Filter class gets executed. It checks if the request has a valid JWT token. If it has a valid JWT 
+		 Token then it sets the Authentication in the context, to specify that the current user is authenticated.
+		 
+	.3 JwtAuthenticationEntryPoint class will extend Spring's AuthenticationEntryPoint class and override its method commence.
+ 		It rejects every unauthenticated request and send error code 401
+
+7. JwtUSerDetails load user name and password from database and is called by ||Sring security|| authentication manager.
+	It implements the Spring Security UserDetailsService interface. 
+
+8. Also added jwt request and response model classes .
+
+9. created controller classes with @RestController annotations.
+
+	.1 AdminTicketController is for Admin related functionalities i.e get all tickets and upload document and update a ticket.
+	
+	.2 UserTicketController is for Employees related fucntionalities i.e raise or edit a ticket & get my tickets,
+		,download docs uploaded by admin.
+	
+	.3 ForgotpasswordController is for sending emails to registered users if user forgots his username or password.
+	
+	.4 RegistrationContoller is for registering new Employee with the system.also sends welcome email using emailservice class.
+	
+	.5 JWTAuthenticationController exposes a POST API /authenticate.The POST API gets username and password in 
+		the body- Using Spring Authentication Manager we authenticate the username and password.
+		If the credentials are valid, a JWT token is created using the JWTTokenUtil and provided to the client.
+		
 7. implemented validation check if user already registered with system he cannot register and a mail with
 	 his username password will be sent to his registered email address.
+ 
+
+
+
+
+
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________	
 Assumption:
 
 					*************User are Employee and Admin.********************.
 
-- Only one admin is there with username = admin and password = 1234.
+- Only one admin is there with username = admin@nagarro.com and password = 1234.
 - Email with username and password will be sent to only registered email adress for the user.
 - username and email address are same.
 - if user tries to register again then a mail with his username password will be sent to his registered email address.
 - Mail related to Admin will go to anamikalbsim@gmail.com.
+- Single document can be uploaded by admin with ticket.
 
 
 
