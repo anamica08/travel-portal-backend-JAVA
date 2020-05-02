@@ -51,7 +51,7 @@ public class EmployeeService {
 	 */
 	public boolean userAlreadyExist(Employee employee) {
 		//Logger.getLogger(EmployeeService.class).info(empdao.existsById(employee.getUsername()));
-		if(empdao.existsById(employee.getUsername())) {
+		if(empdao.existsById(employee.getEmail())) {
 			return true;
 		}
 		return false;

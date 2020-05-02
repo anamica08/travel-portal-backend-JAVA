@@ -1,26 +1,25 @@
 github repo:
-_____________
 backend: https://github.com/anamica08/travel-portal-nagarro-backend-JAVA
 frontend:https://github.com/anamica08/travel-portal-nagarro
 Base Package: com.nagarro.travelportal
 _____________________________________________________________________________________________________________________________________________________________________
 
-1. created model classes Ticket and Employee with @Entity annotation.
+#1. created model classes Ticket and Employee with @Entity annotation.
 	1.1 created 3 enum in com.nagarro.travelportal.enum package
 	
-2. created dao classes with @Respository annotation.
+#2. created dao classes with @Respository annotation.
 	2.1 added mysql connection parameters to properties file.
 
-3. created service classes containing basic service methods for controllers, with @Service annotation.
+#3. created service classes containing basic service methods for controllers, with @Service annotation.
 	Injected the dao class dependency to use its methods.
 
-4. created a email service class with @Service which will be used to send welcome and credentials emails.
+#4. created a email service class with @Service which will be used to send welcome and credentials emails.
 	for credentials email , it will first verify if the user requesting for credentials is already registered 
 	in the system.	
 	
 	.1 implemented a password service class that uses passay to genrate random passswords.
 
-6. created configuration files for JWTAuthentication.
+#6. created configuration files for JWTAuthentication.added secret key in applications.property
 
 	.1 JwtTokenutil deals with generating and validationg a jwt token. also sess if token is expired or not.
 	
@@ -31,14 +30,15 @@ ________________________________________________________________________________
 	.3 JwtAuthenticationEntryPoint class will extend Spring's AuthenticationEntryPoint class and override its method commence.
  		It rejects every unauthenticated request and send error code 401
 
-7. JwtUSerDetails load user name and password from database and is called by ||Sring security|| authentication manager.
+#7. JwtUSerDetails load user name and password from database and is called by ||Sring security|| authentication manager.
 	It implements the Spring Security UserDetailsService interface. 
 
-8. Also added jwt request and response model classes .
+#8. Also added jwt request and response model classes .
 
-9. created controller classes with @RestController annotations.
+#9. created controller classes with @RestController annotations.
 
 	.1 AdminTicketController is for Admin related functionalities i.e get all tickets and upload document and update a ticket.
+		 It returns a download Url for uploaded file to client.
 	
 	.2 UserTicketController is for Employees related fucntionalities i.e raise or edit a ticket & get my tickets,
 		,download docs uploaded by admin.
@@ -51,7 +51,7 @@ ________________________________________________________________________________
 		the body- Using Spring Authentication Manager we authenticate the username and password.
 		If the credentials are valid, a JWT token is created using the JWTTokenUtil and provided to the client.
 		
-7. implemented validation check if user already registered with system he cannot register and a mail with
+#10. implemented validation check if user already registered with system he cannot register and a mail with
 	 his username password will be sent to his registered email address.
  
 
@@ -78,6 +78,7 @@ ________________________________________________________________________________
 
 
 Login Registration Flow : 
+________________________
 
 
 -> user logins -->login succesfull-->JWTToekn is returned --> then access to other user api.
@@ -105,12 +106,3 @@ Login Registration Flow :
 
 
 
-
-add dependency in pom
-add secret key in applications.property
-create a package  .config
-	create a class jwttokenutil
-in service package create jwtuserdetailsservice
-in controller create jwt authentication controller
-now we create jwtrequest jwtreposne model , i will rename login credentials for that. and add implemenets Serializable in that
-created websecurity jwtrequestfilter jwtauthenticationentrypoint in .config

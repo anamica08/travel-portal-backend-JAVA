@@ -44,34 +44,38 @@ public class RegistrationController {
 	 * @return the response entity
 	 */
 	@PostMapping("/register")
-	public ResponseEntity<String> createUserAsEmployee(@Valid @RequestBody Employee employee) {
+	public ResponseEntity<?> createUserAsEmployee(@Valid @RequestBody Employee employee) {
 
 		// check if receieved employee already in system then he cannot register.
 		if (empService.userAlreadyExist(employee)) {
-			log.info("User " + employee.getUsername() + " is already registered");
-			emailService.welcomeMail(employee.getEmail());
-			return new ResponseEntity<String>("Registration Failed", HttpStatus.EXPECTATION_FAILED);
+			log.info("User " + employee.getEmail() + " is already registered");
+//			emailService.welcomeMail(employee.getEmail());
+			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 		}
-
-		Employee employeeToAdd = empService.addEmployee(employee);
-
-//		if (employeeToAdd== null) {
-//			log.info("User" + employee.getUsername() + " is not registered");
-//			return new ResponseEntity<String>("Registration Failed", HttpStatus.EXPECTATION_FAILED);
-//		}
-
-		log.info("User " + employee.getUsername() + " is succesfully registered");
+		
+		
 
 		// send a welcomeMail.
-		String password = emailService.welcomeMail(employeeToAdd.getEmail());
+		String password = emailService.welcomeMail(employee.getEmail());
 
 		
 		// set password for new user.
-		employeeToAdd.setPasswordAsString(password);
-		employeeToAdd.setPassword(bcryptEncoder.encode(password));
-		empService.addEmployee(employeeToAdd);
+		//set username as email address.
+		employee.setUsername(employee.getEmail());
+		employee.setPasswordAsString(password);
+		employee.setPassword(bcryptEncoder.encode(password));
+		try {
+			if( empService.addEmployee(employee) !=null ) {
+				log.info("User " + employee.getUsername() + " is succesfully registered");
+				return new ResponseEntity<>( HttpStatus.OK);
+			};
+			
+		}catch(Exception e ) {
+			log.info(e.getMessage());
+		}
+		
 
-		return new ResponseEntity<String>("Employee registered Successfully", HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 
 	}
 }

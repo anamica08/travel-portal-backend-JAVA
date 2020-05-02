@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import javax.validation.Valid;
 
 import org.jboss.logging.Logger;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +47,7 @@ private Logger log = Logger.getLogger(AdminTicketController.class);
 	 *
 	 * @return the all tickets
 	 */
-	@GetMapping("/ticket")
+	@GetMapping("/admin/ticket")
 	public List<Ticket> getAllTickets() {
 		return ticketService.getAllTicket();
 	}
@@ -106,13 +107,14 @@ private Logger log = Logger.getLogger(AdminTicketController.class);
 					}
 					ticketToUpdate.setEmployee(empObj);
 					ticketService.addOrUpdateTicket(ticketToUpdate);
-
-					return new ResponseEntity<String>(fileDownloadUri, HttpStatus.OK);
+					JSONObject json = new JSONObject();
+					json.append("download url", fileDownloadUri);
+					return new ResponseEntity<>(json.toString(), HttpStatus.OK);
 
 				} catch (NoSuchElementException | IOException e) {
 					log.info("Ticket for id " + ticketToUpdate.getTickedId() + " is not found");
 				}
-				return new ResponseEntity<String>("Ticket Update failed.", HttpStatus.NOT_FOUND);
+				return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 
 			}
 

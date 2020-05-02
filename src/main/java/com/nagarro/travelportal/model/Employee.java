@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Employee {
 	
 	/** The username. */
-	@Id
+	
 	private String username;
 
 	/** The password. */
@@ -52,12 +52,11 @@ public class Employee {
 	/** The email. */
 	@NotNull(message="Email cannot be null")
 	@Email(message = "Not a valid email address")
-	// TODO:implement restrictive email as user@nagarro.com .
+	@Id
 	private String email;
 
 	/** The phone. */
 	@NotNull
-	@Size(max = 15)
 	private String phone;
 
 	/** The address 1. */

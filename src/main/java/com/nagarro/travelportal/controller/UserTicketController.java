@@ -53,14 +53,17 @@ public class UserTicketController {
 		Employee emp = empService.getEmployeeByUsername(user);
 		// foreign key set
 		ticket.setEmployee(emp);
+		try {
 		if (ticketService.addOrUpdateTicket(ticket) != null) {
 			log.info("Ticket to travel from " + ticket.getFrom() + " to " + ticket.getTravelCity()
 					+ " has been raised. ");
-			return new ResponseEntity<String>("Ticket Raised Succesfuly", HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
-
+		}catch(Exception e) {
+			log.info(e.getMessage());
+		}
 		log.info("Ticket not raised ");
-		return new ResponseEntity<String>("Ticket not Raised", HttpStatus.EXPECTATION_FAILED);
+		return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 	}
 
 	/**

@@ -53,15 +53,15 @@ public class ForgotPasswordController {
 		// for admin
 		if (emailAddress.equals("admin@nagarro.com")) {
 			emailService.getMailWithCredentials(emailAddress);
-			return new ResponseEntity<String>("Mail has been sent to your registered email address", HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 
 		// for employee
 		if (emailService.getMailWithCredentials(emailAddress))
-			return new ResponseEntity<String>("Mail has been sent to your registered email address", HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 
 		// for user not found
-		return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
 	}
 }
