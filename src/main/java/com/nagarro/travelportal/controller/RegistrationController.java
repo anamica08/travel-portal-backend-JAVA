@@ -46,36 +46,30 @@ public class RegistrationController {
 	@PostMapping("/register")
 	public ResponseEntity<?> createUserAsEmployee(@Valid @RequestBody Employee employee) {
 
-		// check if receieved employee already in system then he cannot register.
+		// check if logged in employee already in system then he cannot register.
 		if (empService.userAlreadyExist(employee)) {
 			log.info("User " + employee.getEmail() + " is already registered");
-//			emailService.welcomeMail(employee.getEmail());
 			return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 		}
-		
-		
 
 		// send a welcomeMail.
 		String password = emailService.welcomeMail(employee.getEmail());
 
-		
 		// set password for new user.
-		//set username as email address.
+		// set username as email address.
 		employee.setUsername(employee.getEmail());
 		employee.setPasswordAsString(password);
 		employee.setPassword(bcryptEncoder.encode(password));
 		try {
-			if( empService.addEmployee(employee) !=null ) {
+			if (empService.addEmployee(employee) != null) {
 				log.info("User " + employee.getUsername() + " is succesfully registered");
-				return new ResponseEntity<>( HttpStatus.OK);
-			};
-			
-		}catch(Exception e ) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			;
+
+		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
-		
-
 		return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-
 	}
 }

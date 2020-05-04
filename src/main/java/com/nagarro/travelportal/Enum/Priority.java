@@ -1,6 +1,16 @@
 package com.nagarro.travelportal.Enum;
 
 
+
+/**
+ * The Enum Priority.
+ */
 public enum Priority {
-	normal, urgent, immediate
+	
+	/** The normal. */
+	normal, 
+ /** The urgent. */
+ urgent, 
+ /** The immediate. */
+ immediate
 }

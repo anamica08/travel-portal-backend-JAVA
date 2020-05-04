@@ -22,7 +22,6 @@ import com.nagarro.travelportal.model.Employee;
 @RestController
 public class ForgotPasswordController {
 
-	
 	/** The emp service. */
 	@Autowired
 	private EmployeeService empService;

@@ -9,38 +9,32 @@ import org.springframework.stereotype.Service;
 
 import com.nagarro.travelportal.model.Employee;
 
-
-// TODO: Auto-generated Javadoc
 /**
- * The Class EmailService
- *  sends email.
+ * The Class EmailService sends email.
  */
 @Service
 public class EmailService {
-	
+
 	/** The log. */
 	private Logger log = Logger.getLogger(EmailService.class);
 
 	/** The mail sender. */
 	@Autowired
 	JavaMailSender mailSender;
-	
+
 	/** The pswd service. */
 	@Autowired
 	PasswordService pswdService;
-	
+
 	/** The emp service. */
-	@Autowired 
+	@Autowired
 	EmployeeService empService;
 
-	
-	
-	
 	/**
 	 * Send email.
 	 *
 	 * @param ToEmail the to email
-	 * @param text the text
+	 * @param text    the text
 	 */
 	@Async
 	public void sendEmail(String ToEmail, String text) {
@@ -52,9 +46,7 @@ public class EmailService {
 		mailSender.send(simpleMailMessage);
 
 	}
-	
-	
-	
+
 	/**
 	 * Welcome mail.
 	 *
@@ -65,21 +57,18 @@ public class EmailService {
 
 		// generate password
 		String password = pswdService.generatePassword();
-		
+
 		StringBuffer text = new StringBuffer();
 		text.append("Greetings for the day!").append("\n" + "\n").append("Welcome to Nagarro Travel Portal")
 				.append("\n" + "\n" + "\n").append("Login Credentials for your account are:").append("\n" + "\n")
 				.append("Username: " + emailAddress).append("\n").append("Password: " + password)
 				.append("\n" + "\n" + "\n").append("Regards!").append("\n").append("Nagarro Travel Team");
 
-		
 		sendEmail(emailAddress, text.toString());
 		log.info("Welcome Mail Sent Succesfully.");
 		return password;
 	}
-	
-	
-	
+
 	/**
 	 * Gets the mail with credentials.
 	 *
@@ -105,7 +94,7 @@ public class EmailService {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Gets the credentialsfor admin.
 	 *
@@ -113,16 +102,16 @@ public class EmailService {
 	 * @return the credentialsfor admin
 	 */
 	public boolean getCredentialsforAdmin(String emailAddress) {
-		
-			StringBuffer text = new StringBuffer();
-			text.append("Greetings for the day!").append("\n" + "\n" + "\n")
-					.append("Login Credentials for your account are:").append("\n" + "\n")
-					.append("Username: " + emailAddress).append("\n").append("Password: " + "1234")
-					.append("\n" + "\n" + "\n").append("Regards!").append("\n").append("Nagarro Travel Team");
 
-			sendEmail("anamikalbsim@gmail.com", text.toString());
-			log.info("Mail with username and password has been sent");
-			return true;
-		}
-	
+		StringBuffer text = new StringBuffer();
+		text.append("Greetings for the day!").append("\n" + "\n" + "\n")
+				.append("Login Credentials for your account are:").append("\n" + "\n")
+				.append("Username: " + emailAddress).append("\n").append("Password: " + "1234")
+				.append("\n" + "\n" + "\n").append("Regards!").append("\n").append("Nagarro Travel Team");
+
+		sendEmail("anamikalbsim@gmail.com", text.toString());
+		log.info("Mail with username and password has been sent");
+		return true;
+	}
+
 }

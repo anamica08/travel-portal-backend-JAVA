@@ -8,12 +8,31 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.nagarro.travelportal.model.Ticket;
 
+
+/**
+ * The Interface TicketDao.
+ */
 public interface TicketDao extends JpaRepository<Ticket, Integer>{
-	//@Query("select ticket from Ticket ticket where ticket.employee_username = ?1")
+	
+	/**
+	 * Find by username.
+	 *
+	 * @param username the username
+	 * @return the list
+	 * @throws NoSuchElementException the no such element exception
+	 */
 	@Query("FROM Ticket where employee_username =:username")
     List<Ticket> findByUsername(String username) throws NoSuchElementException;
 	
+	/**
+	 * Ticket raise by.
+	 *
+	 * @param id the id
+	 * @return the string
+	 */
 	@Query("SELECT t.employee.username FROM Ticket t WHERE t.ticketId =:id")
 	String ticketRaiseBy(Integer id) ;
 	
+	
+
 }

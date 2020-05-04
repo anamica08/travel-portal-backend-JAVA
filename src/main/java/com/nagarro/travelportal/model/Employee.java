@@ -1,20 +1,13 @@
 package com.nagarro.travelportal.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Entity Employee.
  */
@@ -31,6 +24,7 @@ public class Employee {
 	private String password;
 	
 	/** The password as string. */
+	@JsonIgnore
 	private String passwordAsString;
 
 	/** The first name. */
@@ -82,9 +76,9 @@ public class Employee {
 	@NotNull
 	private String country;
 
-	/** The tickets. */
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "employee")
-	private List<Ticket> tickets;
+//	/** The tickets. */
+//	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "employee")
+//	private List<Ticket> tickets;
 
 	/**
 	 * Instantiates a new employee.
@@ -364,24 +358,6 @@ public class Employee {
 	 */
 	public void setCountry(String country) {
 		this.country = country;
-	}
-
-	/**
-	 * Gets the tickets.
-	 *
-	 * @return the tickets
-	 */
-	public List<Ticket> getTickets() {
-		return tickets;
-	}
-
-	/**
-	 * Sets the tickets.
-	 *
-	 * @param tickets the tickets to set
-	 */
-	public void setTickets(List<Ticket> tickets) {
-		this.tickets = tickets;
 	}
 
 	/*

@@ -11,12 +11,20 @@ import org.springframework.stereotype.Service;
 
 import com.nagarro.travelportal.model.Employee;
 
+
+/**
+ * The Class JwtUserDetailService.
+ */
 @Service
 public class JwtUserDetailService implements UserDetailsService {
 
+	/** The emp service. */
 	@Autowired
 	EmployeeService empService;
 	
+	/* (non-Javadoc)
+	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		

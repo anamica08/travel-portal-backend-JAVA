@@ -1,9 +1,8 @@
 package com.nagarro.travelportal.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
-import java.util.NoSuchElementException;
-
 import javax.validation.Valid;
 
 import org.jboss.logging.Logger;
@@ -13,34 +12,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.nagarro.travelportal.Service.EmployeeService;
 import com.nagarro.travelportal.Service.TicketService;
-import com.nagarro.travelportal.model.Employee;
 import com.nagarro.travelportal.model.Ticket;
 
-
-
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class AdminTicketController {
 
-
 	/** The log. */
-private Logger log = Logger.getLogger(AdminTicketController.class);
+	private Logger log = Logger.getLogger(AdminTicketController.class);
 
 	/** The ticket service. */
 	@Autowired
 	private TicketService ticketService;
-	
-	/** The emp service. */
-	@Autowired
-	private EmployeeService empService;
 
 	/**
 	 * Gets the all tickets.
@@ -55,68 +44,42 @@ private Logger log = Logger.getLogger(AdminTicketController.class);
 	/**
 	 * Update ticket.
 	 *
-	 * @param ticketToUpdate the ticket to update
+	 * @param newDetails the ticket to update
 	 * @return the response entity
 	 */
-//	@PatchMapping("/ticket")
-//	//@RequestMapping(value = "/ticket/update", method = RequestMethod.PATCH, consumes = { "multipart/form-data" })
-//	public ResponseEntity<String> updateTicket( @Valid @RequestBody Ticket ticketToUpdate) {
-//
-//		try {
-//			
-//			ticketService.getTicketById(ticketToUpdate.getTickedId()); //throws no such element exception.
-//			
-//			// obtain the employee who raised this ticket.
-//			Employee empObj = empService.getEmployeeByUsername(ticketService.ticketRaisedBy(ticketToUpdate.getTickedId()));
-//			ticketToUpdate.setEmployee(empObj);
-//			ticketService.addOrUpdateTicket(ticketToUpdate);
-//			
-//			return new ResponseEntity<String>("Admin Action on ticket is done succesfully.",HttpStatus.OK);
-//			
-//		} catch (NoSuchElementException e) {
-//			log.info("Ticket for id " + ticketToUpdate.getTickedId() + " is not found");
-//		}
-//		 return new ResponseEntity<String>("Ticket Update failed.",HttpStatus.NOT_FOUND);
-//
-//	}
+
 	@PostMapping(value = "/admin/ticket/update", consumes = { "multipart/form-data" }
 
-			)
-			public ResponseEntity<String> updateTicket(@Valid @RequestPart("ticket") Ticket ticketToUpdate,
-					@RequestPart(required = false) MultipartFile file) {
-				String fileDownloadUri = null;
-				
-				try {
-					ticketService.getTicketById(ticketToUpdate.getTickedId()); // throws no such element exception.
-					// obtain the employee who raised this ticket.
-					Employee empObj = empService
-							.getEmployeeByUsername(ticketService.ticketRaisedBy(ticketToUpdate.getTickedId()));
-					
-				
-					String id = Integer.toString(ticketToUpdate.getTickedId());
-					
-					if (file != null) {
-						fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/").path(id)
-								.toUriString();
-						log.info("DownloadLink for the added file: " +fileDownloadUri);
-						
-						//add file realted information
-						ticketToUpdate.setDownloadLink(fileDownloadUri);
-						ticketToUpdate.setFiles(file.getBytes());
-						
-					}
-					ticketToUpdate.setEmployee(empObj);
-					ticketService.addOrUpdateTicket(ticketToUpdate);
-					JSONObject json = new JSONObject();
-					json.append("download url", fileDownloadUri);
-					return new ResponseEntity<>(json.toString(), HttpStatus.OK);
+	)
+	public ResponseEntity<String> updateTicket(@Valid @RequestPart("ticket") Ticket newDetails,
+			@RequestPart(required = false) MultipartFile file) {
 
-				} catch (NoSuchElementException | IOException e) {
-					log.info("Ticket for id " + ticketToUpdate.getTickedId() + " is not found");
-				}
-				return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+		try {
+			JSONObject jsonWithFileUrl = ticketService.processTicketRequest(newDetails, file);
+			return new ResponseEntity<>(jsonWithFileUrl.toString(), HttpStatus.OK);
 
-			}
+		} catch (IOException e) {
+			log.info("File not uploaded");
+		}
+		return new ResponseEntity<String>(HttpStatus.EXPECTATION_FAILED);
+	}
 
-	
+	/**
+	 * Gets the ticket by id.
+	 *
+	 * @param principal the principal
+	 * @param id        the id
+	 * @return the ticket by id
+	 */
+	@GetMapping("/admin/ticket/{id}")
+	public ResponseEntity<Ticket> getTicketById(Principal principal, @PathVariable(value = "id") Integer id) {
+		if (principal.getName().equals("admin@nagarro.com")) {
+			Ticket fetchedTicket = ticketService.getTicketById(id);
+			return new ResponseEntity<>(fetchedTicket, HttpStatus.OK);
+		}
+		log.info("Requested Ticket doesnot exist");
+		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+	}
+
 }

@@ -18,14 +18,11 @@ import com.nagarro.travelportal.config.JwtTokenUtil;
 import com.nagarro.travelportal.model.JwtRequest;
 import com.nagarro.travelportal.model.JwtResponse;
 
-
-
-
 /**
  * The Class JwtAuthenticationController.
  */
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class JwtAuthenticationController {
 
 	/** The authentication manager. */
@@ -52,8 +49,7 @@ public class JwtAuthenticationController {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 

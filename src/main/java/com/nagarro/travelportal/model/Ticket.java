@@ -1,6 +1,5 @@
 package com.nagarro.travelportal.model;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,18 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import java.util.Arrays;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nagarro.travelportal.Enum.Priority;
 import com.nagarro.travelportal.Enum.TicketStatus;
 import com.nagarro.travelportal.Enum.TicketType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Entity Ticket.
  */
@@ -37,53 +33,53 @@ public class Ticket {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ticketId;
-	
+
 	/** The employee. */
-	@JsonIgnore
+	// @JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="employee_username")
+	@JoinColumn(name = "employee_username")
 	private Employee employee;
-	
+
 	/** The request type. */
-	@NotNull
+
 	@Enumerated(EnumType.STRING)
 	private TicketType requestType;
 
 	/** The priority. */
-	@NotNull
+
 	@Enumerated(EnumType.STRING)
 	private Priority priority;
 
 	/** The travel city. */
-	@NotNull
+
 	private String travelCity;
 
 	/** The from. */
-	@NotNull
+
 	@Column(name = "fromCity")
 	private String from;
 
 	/** The start date. */
-	@NotNull
+
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
 
 	/** The end date. */
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
 
 	/** The passport number. */
-	@NotNull
+
 	@Size(max = 25)
 	private String passportNumber;
 
 	/** The project name. */
-	@NotNull
+
 	private String projectName;
 
 	/** The borne by. */
-	@NotNull
+
 	private String borneBy;
 
 	/** The approver. */
@@ -97,33 +93,32 @@ public class Ticket {
 
 	/** The extra details. */
 	private String extraDetails;
-	
+
 	/** The submit date. */
-	@NotNull
+
 	@Temporal(TemporalType.DATE)
 	private Date submitDate;
-	
+
 	/** The status. */
-	@NotNull
+
 	@Enumerated(EnumType.STRING)
 	private TicketStatus status;
-	
+
 	/** The files. */
 	@Lob
-	@Column(length=100000)
+	@Column(length = 100000)
 	private byte[] files;
-	
+
 	private String remarks;
-	
+
 	private String downloadLink;
+
 	/**
 	 * @return the downloadLink
 	 */
 	public String getDownloadLink() {
 		return downloadLink;
 	}
-
-
 
 	/**
 	 * @param downloadLink the downloadLink to set
@@ -132,17 +127,13 @@ public class Ticket {
 		this.downloadLink = downloadLink;
 	}
 
-
-
 	/**
 	 * Instantiates a new ticket.
 	 */
 	public Ticket() {
 
 	}
-	
-	
-	
+
 	/**
 	 * Gets the employee.
 	 *
@@ -161,13 +152,10 @@ public class Ticket {
 		this.employee = employee;
 	}
 
-
 	/**
-	 * Gets the ticked id.
-	 *
 	 * @return the ticketId
 	 */
-	public int getTickedId() {
+	public int getTicketId() {
 		return ticketId;
 	}
 
@@ -176,7 +164,7 @@ public class Ticket {
 	 *
 	 * @param ticketId the ticketId to set
 	 */
-	public void setTickedId(int ticketId) {
+	public void setTicketId(int ticketId) {
 		this.ticketId = ticketId;
 	}
 
@@ -413,8 +401,6 @@ public class Ticket {
 	public void setExtraDetails(String extraDetails) {
 		this.extraDetails = extraDetails;
 	}
-	
-
 
 	/**
 	 * @return the submitDate
@@ -423,14 +409,12 @@ public class Ticket {
 		return submitDate;
 	}
 
-
 	/**
 	 * @param submitDate the submitDate to set
 	 */
 	public void setSubmitDate(Date submitDate) {
 		this.submitDate = submitDate;
 	}
-
 
 	/**
 	 * @return the status
@@ -439,15 +423,12 @@ public class Ticket {
 		return status;
 	}
 
-
 	/**
 	 * @param status the status to set
 	 */
 	public void setStatus(TicketStatus status) {
 		this.status = status;
 	}
-
-
 
 	/**
 	 * @return the files
@@ -456,29 +437,12 @@ public class Ticket {
 		return files;
 	}
 
-
-
-	
-
-
-
 	/**
 	 * @param files the files to set
 	 */
 	public void setFiles(byte[] files) {
 		this.files = files;
 	}
-
-
-
-	/**
-	 * @return the ticketId
-	 */
-	public int getTicketId() {
-		return ticketId;
-	}
-
-
 
 	/**
 	 * @return the remarks
@@ -487,8 +451,6 @@ public class Ticket {
 		return remarks;
 	}
 
-
-
 	/**
 	 * @param remarks the remarks to set
 	 */
@@ -496,14 +458,14 @@ public class Ticket {
 		this.remarks = remarks;
 	}
 
-
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Ticket [ticketId=" + ticketId + ", employee=" + employee + ", requestType=" + requestType
+		return "Ticket [ticketId=" + ticketId + ", employee=" + employee.getUsername() + ", requestType=" + requestType
 				+ ", priority=" + priority + ", travelCity=" + travelCity + ", from=" + from + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", passportNumber=" + passportNumber + ", projectName="
 				+ projectName + ", borneBy=" + borneBy + ", approver=" + approver + ", expectedDuration="
@@ -511,8 +473,5 @@ public class Ticket {
 				+ ", submitDate=" + submitDate + ", status=" + status + ", files=" + Arrays.toString(files)
 				+ ", remarks=" + remarks + "]";
 	}
-	
-	
-	
 
 }
