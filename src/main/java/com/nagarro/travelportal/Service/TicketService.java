@@ -86,9 +86,7 @@ public class TicketService {
 	 */
 	public JSONObject processTicketRequest(Ticket ticket, MultipartFile file) throws IOException {
 		Ticket toUpdate = getTicketById(ticket.getTicketId());
-
-		toUpdate.setRemarks(ticket.getRemarks());
-		toUpdate.setStatus(ticket.getStatus());
+		byte[] _file = file.getBytes();
 		String id = Integer.toString(ticket.getTicketId());
 		String fileDownloadUri = null;
 		if (file != null) {
@@ -96,10 +94,10 @@ public class TicketService {
 					.toUriString();
 			// add file related information
 			toUpdate.setDownloadLink(fileDownloadUri);
-			toUpdate.setFiles(file.getBytes());
+			//update all the details sent by admin.
+			ticketdao.processTicketRequest(ticket.getRemarks(), ticket.getStatus(), _file, ticket.getTicketId());
 		}
-
-		addOrUpdateTicket(toUpdate);
+		//return file url.
 		JSONObject json = new JSONObject();
 		json.append("download url", fileDownloadUri);
 		return json;
