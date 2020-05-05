@@ -86,17 +86,24 @@ public class TicketService {
 	 */
 	public JSONObject processTicketRequest(Ticket ticket, MultipartFile file) throws IOException {
 		Ticket toUpdate = getTicketById(ticket.getTicketId());
-		byte[] _file = file.getBytes();
+		
 		String id = Integer.toString(ticket.getTicketId());
 		String fileDownloadUri = null;
 		if (file != null) {
+			byte[] _file = file.getBytes();
 			fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/").path(id)
 					.toUriString();
 			// add file related information
-			toUpdate.setDownloadLink(fileDownloadUri);
-			//update all the details sent by admin.
-			ticketdao.processTicketRequest(ticket.getRemarks(), ticket.getStatus(), _file, ticket.getTicketId());
+			toUpdate.setFiles(_file);			
 		}
+		
+		//in case of no file uploaded , the download link should be same as old state.
+		if(fileDownloadUri == null) {
+			fileDownloadUri = toUpdate.getDownloadLink();
+		}
+		
+		//update query
+		ticketdao.processTicketRequest(ticket.getRemarks(), ticket.getStatus(),fileDownloadUri ,ticket.getTicketId());
 		//return file url.
 		JSONObject json = new JSONObject();
 		json.append("download url", fileDownloadUri);

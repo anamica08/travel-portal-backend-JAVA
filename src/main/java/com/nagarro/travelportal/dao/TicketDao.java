@@ -45,8 +45,8 @@ public interface TicketDao extends JpaRepository<Ticket, Integer>{
 	 */
 	@Transactional
 	@Modifying
-	@Query("UPDATE Ticket t set t.remarks=:remarks , t.files=:file , t.status=:status where t.ticketId=:id")
-	void processTicketRequest(String remarks,TicketStatus status,byte[] file,Integer id);
+	@Query("UPDATE Ticket t set t.remarks=:remarks , t.downloadLink=:link , t.status=:status where t.ticketId=:id")
+	void processTicketRequest(String remarks,TicketStatus status,String link,Integer id);
 	
 
 }
